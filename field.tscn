@@ -1,0 +1,68 @@
+[gd_scene load_steps=8 format=3 uid="uid://ckglopjagolbi"]
+
+[ext_resource type="Texture2D" uid="uid://m8brcrxhye6r" path="res://divider.png" id="1_nvmc6"]
+[ext_resource type="Script" path="res://boundary.gd" id="1_rjlku"]
+[ext_resource type="PackedScene" uid="uid://i6nycioyjq64" path="res://ball.tscn" id="2_ygm2e"]
+[ext_resource type="PackedScene" uid="uid://bl5phums20tas" path="res://paddle.tscn" id="4_rrm75"]
+[ext_resource type="Script" path="res://right_boundary.gd" id="5_f8qvx"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_kdrni"]
+size = Vector2(1152, 24)
+
+[sub_resource type="WorldBoundaryShape2D" id="WorldBoundaryShape2D_2vw1m"]
+
+[node name="Field" type="Node2D"]
+
+[node name="Ball" parent="." instance=ExtResource("2_ygm2e")]
+position = Vector2(493, 305)
+
+[node name="Paddle" parent="." instance=ExtResource("4_rrm75")]
+position = Vector2(0, 244)
+
+[node name="TopBoundary" type="Area2D" parent="."]
+script = ExtResource("1_rjlku")
+metadata/_edit_group_ = true
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="TopBoundary"]
+position = Vector2(576, 12)
+shape = SubResource("RectangleShape2D_kdrni")
+
+[node name="ColorRect" type="ColorRect" parent="TopBoundary"]
+offset_right = 1152.0
+offset_bottom = 24.0
+
+[node name="BottomBoundary" type="Area2D" parent="."]
+position = Vector2(0, 624)
+script = ExtResource("1_rjlku")
+_bounce_direction = -1
+metadata/_edit_group_ = true
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="BottomBoundary"]
+position = Vector2(576, 12)
+shape = SubResource("RectangleShape2D_kdrni")
+
+[node name="ColorRect" type="ColorRect" parent="BottomBoundary"]
+offset_right = 1152.0
+offset_bottom = 24.0
+
+[node name="Separator" type="TextureRect" parent="."]
+offset_left = 560.0
+offset_top = 24.0
+offset_right = 592.0
+offset_bottom = 624.0
+scale = Vector2(0.5, 1)
+texture = ExtResource("1_nvmc6")
+stretch_mode = 1
+
+[node name="RightBoundary" type="Area2D" parent="."]
+position = Vector2(1152, 353)
+rotation = -1.5708
+script = ExtResource("5_f8qvx")
+metadata/_edit_group_ = true
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="RightBoundary"]
+shape = SubResource("WorldBoundaryShape2D_2vw1m")
+
+[connection signal="area_entered" from="TopBoundary" to="TopBoundary" method="_on_area_entered"]
+[connection signal="area_entered" from="BottomBoundary" to="BottomBoundary" method="_on_area_entered"]
+[connection signal="area_entered" from="RightBoundary" to="RightBoundary" method="_on_area_entered"]
