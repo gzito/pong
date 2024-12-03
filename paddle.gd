@@ -1,7 +1,7 @@
 extends Area2D
 
 @export var humanControlled: bool = true
-@export var speed: float = 300.0
+#@export var speed: float = 300.0
 @onready var _half_height : float = $ColorRect.size.y / 2.0
 
 func _physics_process(delta: float) -> void:
@@ -26,7 +26,7 @@ func _on_area_entered(area: Area2D) -> void:
 	if area.name == "Ball":
 		var ball = area as Ball
 		var velocity = ball.direction * ball.speed
-		velocity.y = remap(ball.get_center_y()-get_center_y(),-_half_height,_half_height,-250,250)
+		velocity.y = remap(ball.get_center_y()-get_center_y(),-_half_height,_half_height,-750,750)
 		velocity.x = -velocity.x
 		ball.direction = velocity.normalized()
 		ball.speed = velocity.length()

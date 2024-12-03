@@ -2,7 +2,7 @@ class_name Ball
 extends Area2D
 
 const MAX_SPEED = 3200
-@export var speed: float = 350.0
+@export var speed: float = 750.0
 @export var direction: Vector2 = Vector2(-1,-1).normalized()
 @export var accel: float = 50.0
 
@@ -21,7 +21,11 @@ func get_center_y() -> float:
 func reset() -> void:
 	#_old_pos = Vector2.ZERO
 	position = _initial_position
-	direction = Vector2.RIGHT
+	direction.x = randi_range(0,1)
+	if direction.x == 0:
+		direction.x = -1
+	direction.y = randf_range(-1,1)
+	direction = direction.normalized()
 	speed = _initial_speed
 
 func accelerate() -> void:
