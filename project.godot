@@ -20,6 +20,12 @@ config/icon="res://icon.svg"
 
 window/stretch/mode="viewport"
 
+[layer_names]
+
+2d_physics/layer_1="StaticElement"
+2d_physics/layer_2="Ball"
+2d_physics/layer_3="Paddles"
+
 [rendering]
 
 textures/canvas_textures/default_texture_filter=0

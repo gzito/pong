@@ -6,6 +6,8 @@
 size = Vector2(24, 128)
 
 [node name="Paddle" type="Area2D"]
+collision_layer = 4
+collision_mask = 2
 script = ExtResource("1_2ex6h")
 metadata/_edit_group_ = true
 

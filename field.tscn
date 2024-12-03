@@ -1,10 +1,11 @@
-[gd_scene load_steps=8 format=3 uid="uid://ckglopjagolbi"]
+[gd_scene load_steps=9 format=3 uid="uid://ckglopjagolbi"]
 
 [ext_resource type="Script" path="res://gamemanager.gd" id="1_77wyn"]
 [ext_resource type="Texture2D" uid="uid://m8brcrxhye6r" path="res://divider.png" id="1_nvmc6"]
 [ext_resource type="Script" path="res://boundary.gd" id="1_rjlku"]
 [ext_resource type="PackedScene" uid="uid://i6nycioyjq64" path="res://ball.tscn" id="2_ygm2e"]
 [ext_resource type="PackedScene" uid="uid://bl5phums20tas" path="res://paddle.tscn" id="4_rrm75"]
+[ext_resource type="FontFile" uid="uid://8i8qsjsgt37y" path="res://pong-score.ttf" id="6_06d00"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_kdrni"]
 size = Vector2(1152, 24)
@@ -16,6 +17,7 @@ script = ExtResource("1_77wyn")
 
 [node name="Ball" parent="." instance=ExtResource("2_ygm2e")]
 position = Vector2(568, 316)
+input_pickable = false
 
 [node name="LeftPaddle" parent="." instance=ExtResource("4_rrm75")]
 position = Vector2(16, 244)
@@ -25,6 +27,7 @@ position = Vector2(1112, 256)
 humanControlled = false
 
 [node name="TopBoundary" type="Area2D" parent="."]
+collision_mask = 2
 script = ExtResource("1_rjlku")
 metadata/_edit_group_ = true
 
@@ -38,6 +41,7 @@ offset_bottom = 24.0
 
 [node name="BottomBoundary" type="Area2D" parent="."]
 position = Vector2(0, 624)
+collision_mask = 2
 script = ExtResource("1_rjlku")
 location = 1
 metadata/_edit_group_ = true
@@ -59,9 +63,21 @@ scale = Vector2(0.5, 1)
 texture = ExtResource("1_nvmc6")
 stretch_mode = 1
 
+[node name="LeftBoundary" type="Area2D" parent="."]
+position = Vector2(0, 353)
+rotation = 1.5708
+collision_mask = 2
+script = ExtResource("1_rjlku")
+location = 2
+metadata/_edit_group_ = true
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="LeftBoundary"]
+shape = SubResource("WorldBoundaryShape2D_2vw1m")
+
 [node name="RightBoundary" type="Area2D" parent="."]
 position = Vector2(1152, 353)
 rotation = -1.5708
+collision_mask = 2
 script = ExtResource("1_rjlku")
 location = 3
 metadata/_edit_group_ = true
@@ -69,6 +85,25 @@ metadata/_edit_group_ = true
 [node name="CollisionShape2D" type="CollisionShape2D" parent="RightBoundary"]
 shape = SubResource("WorldBoundaryShape2D_2vw1m")
 
+[node name="LeftScore" type="Label" parent="."]
+offset_left = 349.0
+offset_top = 35.0
+offset_right = 449.0
+offset_bottom = 135.0
+theme_override_fonts/font = ExtResource("6_06d00")
+theme_override_font_sizes/font_size = 100
+text = "5"
+
+[node name="RightScore" type="Label" parent="."]
+offset_left = 932.0
+offset_top = 35.0
+offset_right = 1032.0
+offset_bottom = 135.0
+theme_override_fonts/font = ExtResource("6_06d00")
+theme_override_font_sizes/font_size = 100
+text = "1	"
+
 [connection signal="area_entered" from="TopBoundary" to="TopBoundary" method="_on_area_entered"]
 [connection signal="area_entered" from="BottomBoundary" to="BottomBoundary" method="_on_area_entered"]
+[connection signal="area_entered" from="LeftBoundary" to="LeftBoundary" method="_on_area_entered"]
 [connection signal="area_entered" from="RightBoundary" to="RightBoundary" method="_on_area_entered"]

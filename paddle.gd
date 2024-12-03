@@ -4,7 +4,7 @@ extends Area2D
 @export var speed: float = 300.0
 @onready var _half_height : float = $ColorRect.size.y / 2.0
 
-func _process(delta: float) -> void:
+func _physics_process(delta: float) -> void:
 	if humanControlled:
 		var displacement = DisplayServer.mouse_get_position().y
 		var winpos = get_window().position.y
@@ -17,7 +17,6 @@ func _process(delta: float) -> void:
 		var dest = ball.position.y - (_half_height - ball._half_height)
 		position.y += (dest - position.y)
 		position.y = max(min(position.y,get_window().size.y-$ColorRect.size.y),0)
-		print(position.y)
 
 func get_center_y() -> float:
 	return position.y + _half_height
