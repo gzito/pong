@@ -1,8 +1,12 @@
 extends Area2D
 
 @export var humanControlled: bool = true
-#@export var speed: float = 300.0
+
+const CPU_PADDLE_VSPEED : int = 350
+var cpu_vel_y : float = 0
+
 @onready var _half_height : float = $ColorRect.size.y / 2.0
+@onready var field_node = get_node("/root/Field")
 
 func _physics_process(delta: float) -> void:
 	if humanControlled:
@@ -13,10 +17,32 @@ func _physics_process(delta: float) -> void:
 			if relativeY + $ColorRect.size.y < get_window().size.y:
 				position.y = displacement - winpos
 	else:
-		var ball = get_node("/root/Field/Ball") as Ball
-		var dest = ball.position.y - (_half_height - ball._half_height)
-		position.y += (dest - position.y)
-		position.y = max(min(position.y,get_window().size.y-$ColorRect.size.y),0)
+		var ball: Ball = field_node.ball as Ball
+		var half_screen_height: int = floori(get_window().size.y / 2)
+		var paddle_center_y = position.y + _half_height
+		# ball is moving away from the AI?
+		if ball.direction.x < 0:
+			if absf(paddle_center_y-half_screen_height) < 2:
+				cpu_vel_y = 0
+			elif paddle_center_y < half_screen_height:
+				cpu_vel_y = CPU_PADDLE_VSPEED
+			elif paddle_center_y > half_screen_height:
+				cpu_vel_y = -CPU_PADDLE_VSPEED
+			else:
+				cpu_vel_y = 0
+		else:
+			var ball_center_y = ball.position.y + ball._half_height
+			if absf(ball_center_y - paddle_center_y) < 2:
+				cpu_vel_y = 0
+			elif ball_center_y < paddle_center_y:
+				cpu_vel_y = -CPU_PADDLE_VSPEED
+			elif ball_center_y > paddle_center_y:
+				cpu_vel_y = CPU_PADDLE_VSPEED
+			else:
+				cpu_vel_y = 0
+		
+		position.y += cpu_vel_y * delta
+
 
 func get_center_y() -> float:
 	return position.y + _half_height
@@ -31,3 +57,4 @@ func _on_area_entered(area: Area2D) -> void:
 		ball.direction = velocity.normalized()
 		ball.speed = velocity.length()
 		ball.accelerate()
+		field_node.sfx_paddle.play()

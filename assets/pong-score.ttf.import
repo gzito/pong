@@ -3,12 +3,12 @@
 importer="font_data_dynamic"
 type="FontFile"
 uid="uid://8i8qsjsgt37y"
-path="res://.godot/imported/pong-score.ttf-efb14780788c9e979c33210e600771a9.fontdata"
+path="res://.godot/imported/pong-score.ttf-00d056f2ab108fb068aa6c5ef4b24aa2.fontdata"
 
 [deps]
 
-source_file="res://pong-score.ttf"
-dest_files=["res://.godot/imported/pong-score.ttf-efb14780788c9e979c33210e600771a9.fontdata"]
+source_file="res://assets/pong-score.ttf"
+dest_files=["res://.godot/imported/pong-score.ttf-00d056f2ab108fb068aa6c5ef4b24aa2.fontdata"]
 
 [params]
 

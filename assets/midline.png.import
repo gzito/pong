@@ -3,15 +3,15 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://m8brcrxhye6r"
-path="res://.godot/imported/divider.png-41bf9d198a4f061566865d2a4e99b76b.ctex"
+path="res://.godot/imported/midline.png-15161206398297914e23df1163582f57.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://divider.png"
-dest_files=["res://.godot/imported/divider.png-41bf9d198a4f061566865d2a4e99b76b.ctex"]
+source_file="res://assets/midline.png"
+dest_files=["res://.godot/imported/midline.png-15161206398297914e23df1163582f57.ctex"]
 
 [params]
 
